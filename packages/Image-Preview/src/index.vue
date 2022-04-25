@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import MultiImagePreview from './multi-image-preview'
+import MultiImagePreview from './multi-image-preview.vue';
 export default {
-  name: "z-image-preview",
+  name: "ZImagePreview",
   props: {
     imgList: {
       type: Array,
