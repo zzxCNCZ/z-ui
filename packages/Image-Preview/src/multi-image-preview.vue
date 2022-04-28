@@ -128,7 +128,7 @@
 <script>
 // https://github.com/heyongsheng/hevue-img-preview
 export default {
-  // name: 'multi-image-preview',
+  name: 'multi-image-preview',
   props: {
     imgList: {
       type: Array,

@@ -10,7 +10,7 @@
 <script>
 import MultiImagePreview from './multi-image-preview.vue';
 export default {
-  name: "ZImagePreview",
+  name: "z-image-preview",
   props: {
     imgList: {
       type: Array,
