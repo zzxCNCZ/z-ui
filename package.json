@@ -3,12 +3,20 @@
   "version": "0.3.1",
   "private": false,
   "main": "lib/zui.common.js",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name zui --dest lib packages/index.js"
   },
+  "keywords": [
+    "multi-image-preview",
+    "vue-multi-image",
+    "vue-multi-image-preview",
+    "image-previewer",
+    "zui"
+  ],
   "dependencies": {},
   "devDependencies": {
     "core-js": "^3.6.5",
