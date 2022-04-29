@@ -1,7 +1,7 @@
 // 导入button组件
 import ZButton from './Button'
 import ZImagePreview from './Image-Preview'
-
+import ZPreviewer from './Previewer'
 // 组件列表
 const components = [
     ZButton,
@@ -14,6 +14,7 @@ const install = function (Vue) {
     if (install.installed) return
     // 遍历注册全局组件
     components.map(component => Vue.component(component.name, component))
+    Vue.prototype.$ZPreviewer = ZPreviewer
 }
 
 // 判断是否是直接引入文件
@@ -26,5 +27,6 @@ export default {
     install,
     // 以下是具体的组件列表
     ZButton,
-    ZImagePreview
+    ZImagePreview,
+    ZPreviewer
 }

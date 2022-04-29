@@ -1,28 +1,28 @@
 <template>
   <transition name="fade">
     <div
-        class="hevue-imgpreview-wrap"
-        id="hevue-imgpreview-wrap"
+        class="image-preview-wrapper"
+        id="image-preview-wrapper"
         v-if="show"
-        ref="heImg"
+        ref="imagePreview"
         @mouseup="removeMove('pc')"
         @touchend="removeMove('mobile')"
         @click.stop="clickMask"
     >
-      <div class="he-img-wrap">
+      <div class="image-wrapper">
         <div
-            class="iconfont hevue-img-status-icon rotate-animation"
+            class="iconfont image-status-icon rotate-animation"
             v-show="imgState === 1"
         >
           &#xe6b1;
         </div>
         <!-- <div class="iconfont loading">&#xe6b1;</div> -->
         <img
-            :src="imgurl"
-            ref="heImView"
+            :src="imgUrl"
+            ref="imageView"
             @click.stop=""
             v-show="imgState === 2"
-            class="he-img-view"
+            class="image-viewer"
             :style="
             'transform: scale(' +
               imgScale +
@@ -37,17 +37,18 @@
           "
             @mousedown="addMove"
             @touchstart="addMoveMobile"
+         alt=""
         />
         <!-- 图片加载失败 -->
         <div
-            class="iconfont hevue-img-status-icon"
+            class="iconfont image-status-icon"
             v-show="imgState === 3"
         >
           &#xec0d;
         </div>
         <!-- 关闭按钮 -->
         <div
-            class="iconfont he-close-icon"
+            class="iconfont close-icon"
             @click.stop="close"
             v-if="closeBtn"
         >
@@ -70,22 +71,22 @@
           &#xe60d;
         </div>
         <!-- 控制条 -->
-        <div class="he-control-bar-wrap" v-if="controlBar">
+        <div class="control-bar-wrap" v-if="controlBar">
           <div
-              class="he-control-bar"
+              class="control-bar"
               @click.stop
           >
             <!-- 缩小 -->
-            <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
+            <div class="control-btn iconfont" @click.stop="scaleFunc(-0.15)">
               &#xe65e;
             </div>
             <!-- 放大 -->
-            <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
+            <div class="control-btn iconfont" @click.stop="scaleFunc(0.15)">
               &#xe65d;
             </div>
             <!-- 复位 -->
             <div
-                class="he-control-btn iconfont"
+                class="control-btn iconfont"
                 v-show="isFull"
                 @click.stop="imgToggle"
             >
@@ -93,29 +94,29 @@
             </div>
             <!-- 复位 -->
             <div
-                class="he-control-btn iconfont"
+                class="control-btn iconfont"
                 v-show="!isFull"
                 @click.stop="imgToggle"
             >
               &#xe86b;
             </div>
             <!-- 左转 -->
-            <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
+            <div class="control-btn iconfont" @click.stop="rotateFunc(-90)">
               &#xe670;
             </div>
             <!-- 右转 -->
-            <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
+            <div class="control-btn iconfont" @click.stop="rotateFunc(90)">
               &#xe66f;
             </div>
             <!-- 下载 -->
-            <!-- <div class="he-control-btn iconfont" @click.stop="downloadIamge">
+            <!-- <div class="control-btn iconfont" @click.stop="downloadImage">
               &#xe694;
             </div> -->
           </div>
         </div>
         <!-- 页码指示器 -->
         <div
-            class="he-control-num"
+            class="control-num"
             v-if="controlBar && multiple"
         >
           {{ imgIndex + 1 }} / {{ imgList.length }}
@@ -126,9 +127,8 @@
 </template>
 
 <script>
-// https://github.com/heyongsheng/hevue-img-preview
 export default {
-  name: 'multi-image-preview',
+  name: 'MultiImgPreview',
   props: {
     imgList: {
       type: Array,
@@ -155,7 +155,7 @@ export default {
       clientY: 0,
       imgIndex: 0,
       canRun: true,
-      imgurl: '',
+      imgUrl: '',
       imgState: 1,
       start: [{}, {}],
       mobileScale: 0, // 手指离开时图片的缩放比例
@@ -185,7 +185,8 @@ export default {
       handler (newV) {
         if (newV) {
           this.$nextTick(() => {
-            const _dom = document.getElementById('hevue-imgpreview-wrap')
+            console.log(this.imgList)
+            const _dom = document.getElementById('image-preview-wrapper')
             _dom.onmousewheel = this.scrollFunc
             // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
             document.body.addEventListener('DOMMouseScroll', this.scrollFunc)
@@ -275,10 +276,10 @@ export default {
         // 如果加载出来图片当下标不是当前显示图片当下标，则不予显示（用户点击过快当时候，会出现用户点到第三张了，此时第一张图片才加载完当情况）
         if (index !== undefined && index === this.imgIndex) {
           this.imgState = 2
-          this.imgurl = url
+          this.imgUrl = url
         } else if (index === undefined) {
           this.imgState = 2
-          this.imgurl = url
+          this.imgUrl = url
         }
       }
       img.onerror = () => {
@@ -288,6 +289,7 @@ export default {
           this.imgState = 3
         }
       }
+      console.log(this.imgState)
     },
     // 旋转图片
     rotateFunc (deg) {
@@ -334,7 +336,7 @@ export default {
       e = e || window.event
       this.clientX = e.clientX
       this.clientY = e.clientY
-      this.$refs.heImg.onmousemove = this.moveFunc
+      this.$refs.imagePreview.onmousemove = this.moveFunc
     },
     // 手指按下事件
     addMoveMobile (e) {
@@ -347,7 +349,7 @@ export default {
         this.clientY = e.touches[0].pageY
       }
       // 添加手指拖动事件
-      this.$refs.heImg.ontouchmove = this.moveFuncMobile
+      this.$refs.imagePreview.ontouchmove = this.moveFuncMobile
     },
     // 鼠标拖动
     moveFunc (e) {
@@ -397,10 +399,10 @@ export default {
     // 移除拖动事件
     removeMove (type) {
       if (type === 'pc') {
-        this.$refs.heImg.onmousemove = null
+        this.$refs.imagePreview.onmousemove = null
       } else {
         this.mobileScale = this.imgScale
-        this.$refs.heImg.ontouchmove = null
+        this.$refs.imagePreview.ontouchmove = null
       }
     },
     keyHandleDebounce (e) {
@@ -470,7 +472,7 @@ export default {
      * @param {*} name
      * @return {*}
      */
-    downloadIamge () {
+    downloadImage () {
       // 下载图片地址和图片名
       const image = new Image()
       // 解决跨域 Canvas 污染问题
