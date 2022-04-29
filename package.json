@@ -1,6 +1,6 @@
 {
   "name": "@zzxcncz/z-ui",
-  "version": "1.0.0",
+  "version": "0.2.4",
   "private": false,
   "main": "lib/zui.common.js",
   "scripts": {
