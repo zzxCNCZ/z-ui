@@ -185,7 +185,6 @@ export default {
       handler (newV) {
         if (newV) {
           this.$nextTick(() => {
-            console.log(this.imgList)
             const _dom = document.getElementById('image-preview-wrapper')
             _dom.onmousewheel = this.scrollFunc
             // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
@@ -289,7 +288,6 @@ export default {
           this.imgState = 3
         }
       }
-      console.log(this.imgState)
     },
     // 旋转图片
     rotateFunc (deg) {
