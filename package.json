@@ -15,6 +15,10 @@
     "vue-multi-image",
     "vue-multi-image-preview",
     "image-previewer",
+    "rank",
+    "vue-rank",
+    "button",
+    "vue-button",
     "zui"
   ],
   "dependencies": {},
