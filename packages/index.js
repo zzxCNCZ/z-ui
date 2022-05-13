@@ -2,10 +2,12 @@
 import ZButton from './Button'
 import ZImagePreview from './Image-Preview'
 import ZPreviewer from './Previewer'
+import ZRank from './Rank'
 // 组件列表
 const components = [
     ZButton,
-    ZImagePreview
+    ZImagePreview,
+    ZRank
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，那么所有的组件都会被注册
@@ -28,5 +30,6 @@ export default {
     // 以下是具体的组件列表
     ZButton,
     ZImagePreview,
+    ZRank,
     ZPreviewer
 }

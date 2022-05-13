@@ -37,7 +37,7 @@
           "
             @mousedown="addMove"
             @touchstart="addMoveMobile"
-         alt=""
+            alt=""
         />
         <!-- 图片加载失败 -->
         <div
@@ -132,7 +132,7 @@ export default {
   props: {
     imgList: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -141,7 +141,7 @@ export default {
       default: 0
     }
   },
-  data () {
+  data() {
     return {
       // imgWidth: 0,
       // imgHeight: 0,
@@ -174,15 +174,15 @@ export default {
       clickMaskCLose: false // 是否点击遮罩关闭，默认false
     }
   },
-  mounted () {
+  mounted() {
     this.initImg()
   },
   watch: {
-    url () {
+    url() {
       this.initImg()
     },
     show: {
-      handler (newV) {
+      handler(newV) {
         if (newV) {
           this.$nextTick(() => {
             const _dom = document.getElementById('image-preview-wrapper')
@@ -216,10 +216,10 @@ export default {
     }
   },
   methods: {
-    init () {
+    init() {
       this.show = true
     },
-    close () {
+    close() {
       // this.initImg();
       // this.maxWH = "max-width:100%;max-height:100%;";
       // this.isFull = false;
@@ -233,7 +233,7 @@ export default {
       }
       this.show = false
     },
-    initImg () {
+    initImg() {
       this.mobileScale = 1
       this.imgScale = 1
       this.imgRotate = 0
@@ -245,7 +245,7 @@ export default {
      * true 下一张
      * false 上一张
      */
-    toogleImg (bool) {
+    toogleImg(bool) {
       if (bool) {
         this.imgIndex++
         if (this.imgIndex > this.imgList.length - 1) {
@@ -267,7 +267,7 @@ export default {
      * @param {Number} index 当前显示当图片下标，防止用户点击切换图片过快
      * @return {*}
      */
-    changeUrl (url, index) {
+    changeUrl(url, index) {
       this.imgState = 1
       const img = new Image()
       img.src = url
@@ -290,11 +290,11 @@ export default {
       }
     },
     // 旋转图片
-    rotateFunc (deg) {
+    rotateFunc(deg) {
       this.imgRotate += deg
     },
     // 图片缩放
-    scaleFunc (num, bool) {
+    scaleFunc(num, bool) {
       if (this.imgScale <= 0.2 && num < 0) return
       if (bool) {
         this.imgScale = num
@@ -303,7 +303,7 @@ export default {
       }
     },
     // 图片原尺寸切换
-    imgToggle () {
+    imgToggle() {
       this.initImg()
       if (this.isFull) {
         this.maxWH = 'max-width:100%;max-height:100%;'
@@ -313,7 +313,7 @@ export default {
       this.isFull = !this.isFull
     },
     // 鼠标滚轮缩放
-    scrollFunc (e) {
+    scrollFunc(e) {
       e = e || window.event
       // e.returnValue = false // ie
       // 火狐下没有wheelDelta，用detail代替，由于detail值的正负和wheelDelta相反，所以取反
@@ -330,14 +330,14 @@ export default {
       }
     },
     // 鼠标按下
-    addMove (e) {
+    addMove(e) {
       e = e || window.event
       this.clientX = e.clientX
       this.clientY = e.clientY
       this.$refs.imagePreview.onmousemove = this.moveFunc
     },
     // 手指按下事件
-    addMoveMobile (e) {
+    addMoveMobile(e) {
       e.preventDefault()
       e = e || window.event
       if (e.touches.length > 1) {
@@ -350,7 +350,7 @@ export default {
       this.$refs.imagePreview.ontouchmove = this.moveFuncMobile
     },
     // 鼠标拖动
-    moveFunc (e) {
+    moveFunc(e) {
       e = e || window.event
       e.preventDefault()
       const movementX = e.clientX - this.clientX
@@ -362,7 +362,7 @@ export default {
       this.clientY = e.clientY
     },
     // 手指拖动
-    moveFuncMobile (e) {
+    moveFuncMobile(e) {
       e = e || window.event
       // console.log(e);
       if (e.touches.length > 1) {
@@ -395,7 +395,7 @@ export default {
       }
     },
     // 移除拖动事件
-    removeMove (type) {
+    removeMove(type) {
       if (type === 'pc') {
         this.$refs.imagePreview.onmousemove = null
       } else {
@@ -403,7 +403,7 @@ export default {
         this.$refs.imagePreview.ontouchmove = null
       }
     },
-    keyHandleDebounce (e) {
+    keyHandleDebounce(e) {
       if (this.canRun) {
         // 如果this.canRun为true证明当前可以执行函数
         this.keyHandle(e)
@@ -414,7 +414,7 @@ export default {
       }
     },
     // 键盘事件
-    keyHandle (e) {
+    keyHandle(e) {
       e = window.event || e
       var key = e.keyCode || e.which || e.charCode
       switch (key) {
@@ -452,14 +452,14 @@ export default {
       }
     },
     // 点击遮罩层
-    clickMask () {
+    clickMask() {
       // console.log("hello");
       if (this.clickMaskCLose) {
         this.close()
       }
     },
     // 缩放 勾股定理方法-求两点之间的距离
-    getDistance (p1, p2) {
+    getDistance(p1, p2) {
       var x = p2.pageX - p1.pageX
       var y = p2.pageY - p1.pageY
       return Math.sqrt(x * x + y * y)
@@ -470,7 +470,7 @@ export default {
      * @param {*} name
      * @return {*}
      */
-    downloadImage () {
+    downloadImage() {
       // 下载图片地址和图片名
       const image = new Image()
       // 解决跨域 Canvas 污染问题
