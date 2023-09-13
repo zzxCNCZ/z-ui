@@ -422,19 +422,23 @@ export default {
           this.close()
           break
         case 65: // a键-上一张
+        case 37: // a键-上一张
           if (this.multiple) {
             this.toogleImg(false)
           }
           break
         case 68: // d键-下一张
+        case 39: // d键-下一张
           if (this.multiple) {
             this.toogleImg(true)
           }
           break
         case 87: // w键-放大
+        case 38: // w键-放大
           this.scaleFunc(0.15)
           break
         case 83: // s键-缩小
+        case 40: // s键-缩小
           this.scaleFunc(-0.15)
           break
         case 81: // q键-逆时针旋转
